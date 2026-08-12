@@ -18,6 +18,8 @@ initializeApp({
 });
 
 const db = getFirestore();
+db.settings({ preferRest: true });
+
 const messaging = getMessaging();
 
 console.log("Firebase initialized successfully");
@@ -27,14 +29,16 @@ app.get("/", (req, res) => {
     res.send("AR Chat Notification Server Running");
 });
 
-// Send Notification
-async function sendNotification(token, messageText) {
+
+async function sendNotification(token, senderName, messageText) {
     const payload = {
         token,
+
         notification: {
-            title: "New Message",
+            title: senderName,
             body: messageText,
         },
+
         data: {
             type: "chat",
         },
@@ -48,8 +52,11 @@ async function sendNotification(token, messageText) {
     }
 }
 
-// Listen for new messages
+
 let firstLoad = true;
+
+// Keep track of messages already processed
+const processedMessages = new Set();
 
 db.collectionGroup("messages").onSnapshot(
     (snapshot) => {
@@ -62,45 +69,84 @@ db.collectionGroup("messages").onSnapshot(
         snapshot.docChanges().forEach(async (change) => {
             if (change.type !== "added") return;
 
+            // Unique ID of the Firestore message
+            const messageId = change.doc.id;
+
+            // Prevent duplicate notifications
+            if (processedMessages.has(messageId)) {
+                console.log("Duplicate message skipped:", messageId);
+                return;
+            }
+
+            processedMessages.add(messageId);
+
             const data = change.doc.data();
 
-            console.log("New message:", data.message);
+            console.log("Message ID:", messageId);
+            console.log("Message Path:", change.doc.ref.path);
+            console.log("Message:", data.message);
 
             const receiverId = data.receiverId;
+            const senderId = data.senderId;
 
             if (!receiverId) {
                 console.log("No receiverId on message");
                 return;
             }
 
-            try {
-                const userDoc = await db.collection("users").doc(receiverId).get();
+            if (!senderId) {
+                console.log("No senderId on message");
+                return;
+            }
 
-                if (!userDoc.exists) {
+            try {
+                const receiverDoc = await db
+                    .collection("users")
+                    .doc(receiverId)
+                    .get();
+
+                if (!receiverDoc.exists) {
                     console.log("Receiver not found");
                     return;
                 }
 
-                const token = userDoc.data().token;
+                const receiverData = receiverDoc.data();
+                const token = receiverData.token;
 
                 if (!token) {
                     console.log("No FCM token");
                     return;
                 }
 
-                await sendNotification(token, data.message);
+                const senderDoc = await db
+                    .collection("users")
+                    .doc(senderId)
+                    .get();
+
+                if (!senderDoc.exists) {
+                    console.log("Sender not found");
+                    return;
+                }
+
+                const senderData = senderDoc.data();
+                const senderName = senderData.name || "User";
+
+                console.log("Sender:", senderName);
+                console.log("Receiver:", receiverId);
+
+                await sendNotification(
+                    token,
+                    senderName,
+                    data.message
+                );
+
             } catch (e) {
                 console.log("Error:", e);
             }
         });
     },
+
     (error) => {
         console.log("Firestore listener error:", error);
     }
 );
-
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});

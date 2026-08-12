@@ -43,3 +43,16 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+# Private / Secret files
+.env
+.env.*
+!.env.example
+
+# Firebase Admin credentials
+**/serviceAccountKey.json
+**/*service-account*.json
+**/*credentials*.json
+
+# Node.js dependencies
+node_modules/
+**/node_modules/

@@ -51,8 +51,14 @@ void main() async {
 
   await FirebaseMessaging.instance.requestPermission();
   FirebaseMessaging.onMessage.listen((message) {
+    final title = message.notification?.title;
+
+    if (title == null || title.isEmpty) {
+      return;
+    }
+
     NotificationService.showNotification(
-      title: message.notification?.title ?? "New Message",
+      title: title,
       body: message.notification?.body ?? "",
     );
   });
@@ -124,4 +130,5 @@ class chat_app extends StatelessWidget {
 }
 
 // // AliAli@gmail.com AbdoAbdo@gmail.com A123456789 woal@gmail.com ziad@gmail.com
-// // Ahmed@gmail.com
+// // Ahmed@gmail.com 
+//nour@gmail.com

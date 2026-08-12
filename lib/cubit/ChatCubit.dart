@@ -55,22 +55,10 @@ class ChatCubit extends Cubit<ChatState> {
         message: message,
         type: type,
         fileName: fileName,
-
-        // Reply Data
         replyMessage: replyMessage?.message,
         replySender: replyMessage?.senderId,
         replySenderName: replyMessage?.senderName,
         replyType: replyMessage?.type,
-      );
-
-      await _notificationService.sendNotification(
-        receiverId: receiverId,
-        senderId: senderId,
-        message: type == "image"
-            ? "📷 صورة"
-            : type == "file"
-            ? "📎 ملف"
-            : message,
       );
 
       cancelReply();

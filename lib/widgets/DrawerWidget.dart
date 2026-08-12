@@ -1,3 +1,4 @@
+import 'package:chatt/view/Splash_view.dart';
 import 'package:chatt/view/about_view.dart';
 import 'package:chatt/view/calls_view.dart';
 import 'package:chatt/view/contacts_view.dart';
@@ -180,7 +181,7 @@ class DrawerWidget extends StatelessWidget {
               onTap: () async {
                 await FirebaseAuth.instance.signOut();
 
-                Navigator.pushReplacementNamed(context, LoginView.id);
+                Navigator.pushReplacementNamed(context, SplashHomeView.id);
               },
             ),
           ],

@@ -17,7 +17,7 @@ class _SplashHomeViewState extends State<SplashHomeView> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 60), () {
+    Future.delayed(const Duration(seconds: 2), () {
       if (!mounted) return;
 
       Navigator.pushReplacementNamed(context, OnboardingHomeView.id);
