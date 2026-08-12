@@ -67,9 +67,9 @@
 
 ### 👥 Contacts
 
-| Contacts | Contact Profile |
+| Contacts |  Create groups |
 | -------- | --------------- |
-| ![Contacts](assets/images/archat_contacts.png) | ![Contact Profile](screenshots/archat_contact_profile.png) |
+| ![Contacts](assets/images/archat_contacts.png) | ![Contact Profile](assets/images/Create groups.png) |
 ---
 
 # ✨ Features
