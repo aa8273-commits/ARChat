@@ -20,9 +20,11 @@
 ## 🎥 App Demo
 
 <p align="center">
-  <a href="PUT_YOUR_GITHUB_VIDEO_LINK_HERE">
-    ▶️ <strong>Recording_edited_splash_2s.mp4</strong>
-  </a>
+
+<a href="https://github.com/aa8273-commits/ARChat/raw/refs/heads/main/Recording_edited_splash_2s.mp4">
+  ▶️ <strong>Watch ARChat Demo</strong>
+</a>
+
 </p>
 
 <p align="center">
@@ -55,19 +57,19 @@
 
 | Home | Chat View | 
 | ---- | --------- | 
-| ![Home](assets\images\archat_view.png) | ![Chat View](assets/images/archat_chat.png) | 
+| ![Home](assets/images/archat_view.png) | ![Chat View](assets/images/archat_chat.png) | 
 
 ### 📸 Updates
 
 | Updates | Add Update | 
 | ------- | ---------- | 
-| ![Updates](assets\images\archat_updates.png) | ![Add Update](assets\images\archat_add_update.png) | 
+| ![Updates](assets/images/archat_updates.png) | ![Add Update](assets/images/archat_add_update.png) | 
 
 ### 👥 Contacts
 
 | Contacts | Contact Profile |
 | -------- | --------------- |
-| ![Contacts](assets\images\archat_contacts.png) | ![Contact Profile](screenshots/archat_contact_profile.png) |
+| ![Contacts](assets/images/archat_contacts.png) | ![Contact Profile](screenshots/archat_contact_profile.png) |
 ---
 
 # ✨ Features
